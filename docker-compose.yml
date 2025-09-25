@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  dryvocal-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dryvocal-website
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.dryvocal.description=DryVocal Website"
+      - "com.dryvocal.version=1.0.0"
+    networks:
+      - dryvocal-network
+
+networks:
+  dryvocal-network:
+    driver: bridge
