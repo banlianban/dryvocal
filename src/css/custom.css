@@ -1,0 +1,48 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #111111; /* 黑色主色 */
+  --ifm-color-primary-dark: #000000;
+  --ifm-color-primary-darker: #000000;
+  --ifm-color-primary-darkest: #000000;
+  --ifm-color-primary-light: #222222;
+  --ifm-color-primary-lighter: #333333;
+  --ifm-color-primary-lightest: #444444;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+
+  /* 黑白配色：文本与背景 */
+  --ifm-background-color: #ffffff;
+  --ifm-font-color-base: #111111;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #ffffff; /* 深色模式下主色为白色 */
+  --ifm-color-primary-dark: #e6e6e6;
+  --ifm-color-primary-darker: #cccccc;
+  --ifm-color-primary-darkest: #b3b3b3;
+  --ifm-color-primary-light: #ffffff;
+  --ifm-color-primary-lighter: #ffffff;
+  --ifm-color-primary-lightest: #ffffff;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
+
+  --ifm-background-color: #0a0a0a;
+  --ifm-font-color-base: #f5f5f5;
+}
+
+/* 首页 Hero 区域黑白风格 */
+.hero--primary {
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+[data-theme='dark'] .hero--primary {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
