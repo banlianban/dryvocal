@@ -1,33 +1,46 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import Translate from '@docusaurus/Translate';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: '影视对白净化',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: (
+      <Translate id="home.features.dialogue.title" description="Feature title for dialogue cleanup">
+        影视对白净化
+      </Translate>
+    ),
+    Svg: require('@site/static/img/1.svg').default,
     description: (
-      <>
+      <Translate id="home.features.dialogue.desc" description="Feature description for dialogue cleanup">
         从带有音乐/音效的片段中提取更干净的人声对白，减少底噪与串音。
-      </>
+      </Translate>
     ),
   },
   {
-    title: '多说话人分离',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: (
+      <Translate id="home.features.speaker.title" description="Feature title for multi-speaker separation">
+        多说话人分离
+      </Translate>
+    ),
+    Svg: require('@site/static/img/2.svg').default,
     description: (
-      <>
+      <Translate id="home.features.speaker.desc" description="Feature description for multi-speaker separation">
         两人及以上对话时，分离并导出某个目标说话人的语音轨道。
-      </>
+      </Translate>
     ),
   },
   {
-    title: '智能降噪',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: (
+      <Translate id="home.features.denoise.title" description="Feature title for intelligent denoise">
+        智能降噪
+      </Translate>
+    ),
+    Svg: require('@site/static/img/3.svg').default,
     description: (
-      <>
+      <Translate id="home.features.denoise.desc" description="Feature description for intelligent denoise">
         针对嘈杂环境优化，弱化风噪/人群/车流等背景噪音，保留语音清晰度。
-      </>
+      </Translate>
     ),
   },
 ];

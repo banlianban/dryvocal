@@ -1,11 +1,12 @@
 version: '3.8'
 
 services:
-  dryvocal-site:
+  # Docusaurus网站服务
+  docusaurus:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: dryvocal-website
+    container_name: removeui-docusaurus
     ports:
       - "3000:3000"
     environment:
@@ -17,13 +18,31 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    labels:
-      - "com.dryvocal.description=DryVocal Website"
-      - "com.dryvocal.version=1.0.0"
     networks:
-      - dryvocal-network
+      - removeui-network
+
+  # 可选：添加nginx反向代理
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: removeui-nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - docusaurus
+    restart: unless-stopped
+    networks:
+      - removeui-network
+    profiles:
+      - proxy
 
 networks:
-  dryvocal-network:
+  removeui-network:
     driver: bridge
 
+volumes:
+  nginx_cache:
+    driver: local

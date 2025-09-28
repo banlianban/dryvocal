@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import Head from '@docusaurus/Head';
+import Translate, {translate} from '@docusaurus/Translate';
 
 export default function Root({children}) {
   useEffect(() => {
@@ -26,8 +27,11 @@ export default function Root({children}) {
     name: 'DryVocal',
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Windows',
-    description:
-      'DryVocal：专业干声提取、影视对白净化、人物语音分离与智能降噪，支持本地处理与Windows绿色版下载。',
+    description: translate({
+      id: 'root.jsonld.description',
+      message: 'DryVocal: Professional vocal extraction, dialogue cleanup, speaker separation, and noise reduction. Supports local processing and Windows portable download.',
+      description: 'JSON-LD description for software application',
+    }),
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -52,25 +56,49 @@ export default function Root({children}) {
         
         <meta
           name="description"
-          content="DryVocal：专业干声提取、影视对白净化、人物语音分离与智能降噪，支持本地处理与Windows绿色版下载。"
+          content={translate({
+            id: 'root.meta.description',
+            message: 'DryVocal: Professional vocal extraction, dialogue cleanup, speaker separation, and noise reduction. Supports local processing and Windows portable download.',
+            description: 'Root meta description',
+          })}
         />
         <meta
           name="keywords"
-          content="DryVocal, 干声提取, 影视对白净化, 多说话人分离, 人声分离, 音频降噪, Windows 绿色版, AI 音频处理"
+          content={translate({
+            id: 'root.meta.keywords',
+            message: 'DryVocal, vocal extraction, dialogue cleanup, speaker separation, voice separation, noise reduction, Windows portable, AI audio processing',
+            description: 'Root meta keywords',
+          })}
         />
-        <meta property="og:title" content="DryVocal | 干声提取 · 对白净化 · 分离与降噪" />
+        <meta property="og:title" content={translate({
+          id: 'root.og.title',
+          message: 'DryVocal | Vocal Extraction · Dialogue Cleanup · Separation & Noise Reduction',
+          description: 'Root OpenGraph title',
+        })} />
         <meta
           property="og:description"
-          content="专业级干声提取，影视对白净化，多说话人分离与智能降噪。"
+          content={translate({
+            id: 'root.og.description',
+            message: 'Professional vocal extraction, dialogue cleanup, speaker separation, and noise reduction.',
+            description: 'Root OpenGraph description',
+          })}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://dryvocal.com" />
         <meta property="og:image" content="https://dryvocal.com/img/docusaurus-social-card.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="DryVocal | 干声提取 · 对白净化 · 分离与降噪" />
+        <meta name="twitter:title" content={translate({
+          id: 'root.twitter.title',
+          message: 'DryVocal | Vocal Extraction · Dialogue Cleanup · Separation & Noise Reduction',
+          description: 'Root Twitter title',
+        })} />
         <meta
           name="twitter:description"
-          content="专业级干声提取，影视对白净化，多说话人分离与智能降噪。"
+          content={translate({
+            id: 'root.twitter.description',
+            message: 'Professional vocal extraction, dialogue cleanup, speaker separation, and noise reduction.',
+            description: 'Root Twitter description',
+          })}
         />
         <meta name="twitter:image" content="https://dryvocal.com/img/docusaurus-social-card.jpg" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>

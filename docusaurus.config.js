@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'DryVocal',
-  tagline: '专业干声提取 · 影视对白净化 · 单人语音分离',
+  tagline: 'DryVocal',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -38,7 +38,25 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans'],
+    locales: ['zh-Hans', 'en', 'ja', 'ko'],
+    localeConfigs: {
+      'zh-Hans': {
+        label: '简体中文',
+        direction: 'ltr',
+      },
+      'en': {
+        label: 'English',
+        direction: 'ltr',
+      },
+      'ja': {
+        label: '日本語',
+        direction: 'ltr',
+      },
+      'ko': {
+        label: '한국어',
+        direction: 'ltr',
+      },
+    },
   },
 
   presets: [
@@ -75,6 +93,31 @@ const config = {
     ],
   ],
 
+  customFields: {
+    downloadLinks: {
+      'zh-Hans': {
+        url: 'https://pan.baidu.com/s/1AlO909Xgr3JVF03vPdmbtw?pwd=wdme',
+        text: '立即下载Windows绿色版',
+        platform: '百度网盘'
+      },
+      'en': {
+        url: 'https://drive.google.com/file/d/1pTm3gN38GfyaJP0LHHYzDBSyD0FrEBx1/view?usp=drive_link',
+        text: 'Download Windows Portable',
+        platform: 'Google Drive'
+      },
+      'ja': {
+        url: 'https://drive.google.com/file/d/1pTm3gN38GfyaJP0LHHYzDBSyD0FrEBx1/view?usp=drive_link',
+        text: 'Windowsポータブル版をダウンロード',
+        platform: 'Google Drive'
+      },
+      'ko': {
+        url: 'https://drive.google.com/file/d/1pTm3gN38GfyaJP0LHHYzDBSyD0FrEBx1/view?usp=drive_link',
+        text: 'Windows 포터블 버전 다운로드',
+        platform: 'Google Drive'
+      }
+    }
+  },
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -89,8 +132,8 @@ const config = {
         {property: 'og:url', content: 'https://dryvocal.com'},
         {property: 'og:image', content: 'https://dryvocal.com/img/docusaurus-social-card.jpg'},
         {name: 'twitter:card', content: 'summary_large_image'},
-        {name: 'twitter:title', content: 'DryVocal | 干声提取 · 对白净化 · 分离与降噪'},
-        {name: 'twitter:description', content: '专业级干声提取，影视对白净化，多说话人分离与智能降噪。'},
+        {name: 'twitter:title', content: 'DryVocal'},
+        {name: 'twitter:description', content: 'DryVocal'},
         {name: 'twitter:image', content: 'https://dryvocal.com/img/docusaurus-social-card.jpg'},
       ],
       navbar: {
@@ -108,6 +151,7 @@ const config = {
             label: '官网',
             position: 'right',
           },
+          {type: 'localeDropdown', position: 'right'},
         ],
       },
       footer: {
