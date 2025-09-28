@@ -6,15 +6,18 @@ export default function Root({children}) {
     if (typeof window === 'undefined') {
       return;
     }
-    window._hmt = window._hmt || [];
-    const hm = document.createElement('script');
-    hm.src = 'https://hm.baidu.com/hm.js?027707e36c7032f97e41b32c9ff8d6f2';
-    const s = document.getElementsByTagName('script')[0];
-    if (s && s.parentNode) {
-      s.parentNode.insertBefore(hm, s);
-    } else {
-      document.head.appendChild(hm);
-    }
+    
+    // Google Analytics (gtag.js)
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YTLK0654HR');
+    
+    // Load Google Analytics script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-YTLK0654HR';
+    document.head.appendChild(script);
   }, []);
 
   const jsonLd = {
@@ -37,6 +40,16 @@ export default function Root({children}) {
   return (
     <>
       <Head>
+        {/* Favicon links for different sizes */}
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64x64.png" />
+        <link rel="icon" type="image/png" sizes="128x128" href="/img/favicon-128x128.png" />
+        <link rel="icon" type="image/png" sizes="256x256" href="/img/favicon-256x256.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-256x256.png" />
+        
         <meta
           name="description"
           content="DryVocal：专业干声提取、影视对白净化、人物语音分离与智能降噪，支持本地处理与Windows绿色版下载。"
