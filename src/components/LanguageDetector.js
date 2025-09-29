@@ -3,19 +3,19 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 // 语言映射表：浏览器语言代码 -> Docusaurus语言代码
 const languageMap = {
-  'zh': 'zh-Hans',
-  'zh-CN': 'zh-Hans',
-  'zh-TW': 'zh-Hans',
-  'zh-HK': 'zh-Hans',
-  'zh-SG': 'zh-Hans',
-  'en': 'en',
+  zh: 'zh',
+  'zh-CN': 'zh',
+  'zh-TW': 'zh',
+  'zh-HK': 'zh',
+  'zh-SG': 'zh',
+  en: 'en',
   'en-US': 'en',
   'en-GB': 'en',
   'en-CA': 'en',
   'en-AU': 'en',
-  'ja': 'ja',
+  ja: 'ja',
   'ja-JP': 'ja',
-  'ko': 'ko',
+  ko: 'ko',
   'ko-KR': 'ko',
 };
 
@@ -57,10 +57,10 @@ export default function LanguageDetector() {
     const currentLocale = i18n.currentLocale;
     const currentPath = window.location.pathname;
     
-    // 如果浏览器语言是英文，且当前不是英文，则重定向到英文
+    // 如果浏览器语言是英文，且当前不是英文，则重定向到英文（根路径）
     if (browserLang === 'en' && currentLocale !== 'en') {
       sessionStorage.setItem('language-redirected', 'true');
-      window.location.href = `/en${currentPath}`;
+      window.location.href = currentPath.replace(/^\/(en|zh|ja|ko)(\/|$)/, '/');
       return;
     }
     
@@ -78,17 +78,17 @@ export default function LanguageDetector() {
       return;
     }
     
-    // 如果浏览器语言是中文，且当前不是中文，则重定向到中文
-    if (browserLang === 'zh-Hans' && currentLocale !== 'zh-Hans') {
+    // 如果浏览器语言是中文，且当前不是中文，则重定向到 /zh
+    if (browserLang === 'zh' && currentLocale !== 'zh') {
       sessionStorage.setItem('language-redirected', 'true');
-      window.location.href = currentPath.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '');
+      window.location.href = `/zh${currentPath}`;
       return;
     }
     
     // 如果浏览器语言不在支持列表中，且当前不是英文，则重定向到英文
     if (!browserLang && currentLocale !== 'en') {
       sessionStorage.setItem('language-redirected', 'true');
-      window.location.href = `/en${currentPath}`;
+      window.location.href = currentPath.replace(/^\/(en|zh|ja|ko)(\/|$)/, '/');
       return;
     }
     

@@ -37,25 +37,25 @@ const config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans', 'en', 'ja', 'ko'],
+    defaultLocale: 'en',
+    locales: ['en', 'zh', 'ja', 'ko'],
     localeConfigs: {
-      'zh-Hans': {
+      zh: {
         label: '简体中文',
         direction: 'ltr',
         htmlLang: 'zh-CN',
       },
-      'en': {
+      en: {
         label: 'English',
         direction: 'ltr',
         htmlLang: 'en',
       },
-      'ja': {
+      ja: {
         label: '日本語',
         direction: 'ltr',
         htmlLang: 'ja',
       },
-      'ko': {
+      ko: {
         label: '한국어',
         direction: 'ltr',
         htmlLang: 'ko',
@@ -69,12 +69,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: false,
-        sitemap: {
-          changefreq: 'weekly',
-          priority: 0.7,
-          filename: 'sitemap.xml',
-          ignorePatterns: ['/tags/**'],
-        },
+        // 禁用内置sitemap生成，改为使用 static/sitemap.xml
+        sitemap: false,
         blog: {
           showReadingTime: true,
           feedOptions: {
