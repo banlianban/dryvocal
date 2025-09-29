@@ -2,12 +2,13 @@
 setlocal enabledelayedexpansion
 
 REM Docker构建和部署脚本 (Windows版本)
-REM 用于RemoveUI Docusaurus项目
+REM 用于DryVocal Docusaurus项目
 
-set PROJECT_NAME=removeui-docusaurus
-set IMAGE_NAME=removeui-docusaurus
-set CONTAINER_NAME=removeui-docusaurus
+set PROJECT_NAME=dryvocal-docusaurus
+set IMAGE_NAME=dryvocal-docusaurus
+set CONTAINER_NAME=dryvocal-docusaurus
 set PORT=3000
+set NETWORK_NAME=dryvocal-network
 
 REM 检查Docker是否安装
 :check_docker
@@ -26,16 +27,23 @@ if errorlevel 1 (
 )
 goto :eof
 
-REM 构建Docker镜像
+REM 构建Docker镜像（支持多语言）
 :build_image
-echo 开始构建Docker镜像...
+echo 开始构建Docker镜像（支持多语言）...
+echo 生成翻译文件...
+npm run write-translations
+if errorlevel 1 (
+    echo 警告: 翻译文件生成失败，继续构建...
+)
+
+echo 构建多语言版本...
 docker build -t %IMAGE_NAME%:latest .
 if errorlevel 1 (
     echo 构建失败!
     pause
     exit /b 1
 )
-echo Docker镜像构建完成!
+echo Docker镜像构建完成（支持中文、英文、日文、韩文）!
 goto :eof
 
 REM 停止并删除现有容器
@@ -97,7 +105,7 @@ goto :eof
 
 REM 显示帮助信息
 :show_help
-echo RemoveUI Docusaurus Docker管理脚本
+echo DryVocal Docusaurus Docker管理脚本
 echo.
 echo 用法: %0 [命令]
 echo.
@@ -105,15 +113,20 @@ echo 命令:
 echo   build       构建Docker镜像
 echo   run         运行容器
 echo   start       启动服务 (使用docker-compose)
+echo   start-proxy 启动服务with nginx代理
+echo   start-traefik 启动服务with Traefik代理
+echo   start-monitoring 启动服务with监控
 echo   stop        停止服务
 echo   restart     重启服务
 echo   logs        查看日志
+echo   status      查看服务状态
 echo   cleanup     清理资源
 echo   help        显示帮助信息
 echo.
 echo 示例:
 echo   %0 build    # 构建镜像
 echo   %0 start    # 启动服务
+echo   %0 start-proxy # 启动with nginx代理
 echo   %0 logs     # 查看日志
 goto :eof
 
@@ -137,6 +150,24 @@ if "%1"=="start" (
     call :run_compose
     goto :eof
 )
+if "%1"=="start-proxy" (
+    call :check_docker
+    echo 启动服务with nginx代理...
+    docker-compose --profile proxy up -d
+    goto :eof
+)
+if "%1"=="start-traefik" (
+    call :check_docker
+    echo 启动服务with Traefik代理...
+    docker-compose --profile traefik up -d
+    goto :eof
+)
+if "%1"=="start-monitoring" (
+    call :check_docker
+    echo 启动服务with监控...
+    docker-compose --profile monitoring up -d
+    goto :eof
+)
 if "%1"=="stop" (
     call :stop_service
     goto :eof
@@ -149,6 +180,11 @@ if "%1"=="restart" (
 )
 if "%1"=="logs" (
     call :view_logs
+    goto :eof
+)
+if "%1"=="status" (
+    echo 查看服务状态...
+    docker-compose ps
     goto :eof
 )
 if "%1"=="cleanup" (

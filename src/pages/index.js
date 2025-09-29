@@ -5,6 +5,7 @@ import Layout from '@theme/Layout';
 import Head from '@docusaurus/Head';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Translate, {translate} from '@docusaurus/Translate';
+import LanguageDetector from '@site/src/components/LanguageDetector';
 
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
@@ -60,6 +61,7 @@ export default function Home() {
         description: 'Homepage meta description',
       })}
     >
+      <LanguageDetector />
       <Head>
         <meta
           name="keywords"

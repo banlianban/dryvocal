@@ -30,7 +30,7 @@ const config = {
   organizationName: 'DryVocal', // Usually your GitHub org/user name.
   projectName: 'dryvocal-site', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -43,18 +43,22 @@ const config = {
       'zh-Hans': {
         label: '简体中文',
         direction: 'ltr',
+        htmlLang: 'zh-CN',
       },
       'en': {
         label: 'English',
         direction: 'ltr',
+        htmlLang: 'en',
       },
       'ja': {
         label: '日本語',
         direction: 'ltr',
+        htmlLang: 'ja',
       },
       'ko': {
         label: '한국어',
         direction: 'ltr',
+        htmlLang: 'ko',
       },
     },
   },

@@ -1,0 +1,87 @@
+DryVocal 网站站点地图
+=====================
+
+网站地址: https://dryvocal.com
+最后更新: 2024年12月19日
+
+主要页面
+--------
+首页: https://dryvocal.com/
+中文首页: https://dryvocal.com/zh-Hans/
+英文首页: https://dryvocal.com/en/
+日文首页: https://dryvocal.com/ja/
+韩文首页: https://dryvocal.com/ko/
+
+功能页面
+--------
+功能特性 (中文): https://dryvocal.com/zh-Hans/features
+功能特性 (英文): https://dryvocal.com/en/features
+功能特性 (日文): https://dryvocal.com/ja/features
+功能特性 (韩文): https://dryvocal.com/ko/features
+
+使用案例 (中文): https://dryvocal.com/zh-Hans/cases
+使用案例 (英文): https://dryvocal.com/en/cases
+使用案例 (日文): https://dryvocal.com/ja/cases
+使用案例 (韩文): https://dryvocal.com/ko/cases
+
+常见问题 (中文): https://dryvocal.com/zh-Hans/faq
+常见问题 (英文): https://dryvocal.com/en/faq
+常见问题 (日文): https://dryvocal.com/ja/faq
+常见问题 (韩文): https://dryvocal.com/ko/faq
+
+联系我们 (中文): https://dryvocal.com/zh-Hans/contact
+联系我们 (英文): https://dryvocal.com/en/contact
+联系我们 (日文): https://dryvocal.com/ja/contact
+联系我们 (韩文): https://dryvocal.com/ko/contact
+
+博客内容
+--------
+博客首页 (中文): https://dryvocal.com/zh-Hans/blog
+博客首页 (英文): https://dryvocal.com/en/blog
+博客首页 (日文): https://dryvocal.com/ja/blog
+博客首页 (韩文): https://dryvocal.com/ko/blog
+
+博客文章
+--------
+第一篇博客: https://dryvocal.com/zh-Hans/blog/2019/05/28/first-blog-post
+详细博客: https://dryvocal.com/zh-Hans/blog/2019/05/29/long-blog-post
+MDX博客: https://dryvocal.com/zh-Hans/blog/2021/08/01/mdx-blog-post
+欢迎页面: https://dryvocal.com/zh-Hans/blog/2021/08/26/welcome
+
+法律页面
+--------
+隐私政策 (中文): https://dryvocal.com/zh-Hans/privacy
+服务条款 (中文): https://dryvocal.com/zh-Hans/terms
+
+下载链接
+--------
+中文用户下载: https://pan.baidu.com/s/1AlO909Xgr3JVF03vPdmbtw?pwd=wdme
+国际用户下载: https://drive.google.com/file/d/1pTm3gN38GfyaJP0LHHYzDBSyD0FrEBx1/view?usp=drive_link
+
+技术信息
+--------
+- 网站基于 Docusaurus 3.8.1 构建
+- 支持多语言: 中文(简体)、英文、日文、韩文
+- 响应式设计，支持移动端访问
+- SEO优化，包含完整的meta标签
+- 支持RSS和Atom订阅
+
+联系信息
+--------
+邮箱: support@dryvocal.com
+官网: https://dryvocal.com
+
+站点地图文件
+-----------
+XML站点地图: https://dryvocal.com/sitemap.xml
+HTML站点地图: https://dryvocal.com/sitemap
+文本站点地图: https://dryvocal.com/sitemap.txt
+
+更新频率
+--------
+- 首页: 每周更新
+- 功能页面: 每月更新
+- 博客: 每周更新
+- 法律页面: 每年更新
+
+

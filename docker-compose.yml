@@ -6,43 +6,122 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: removeui-docusaurus
+      args:
+        - NODE_ENV=production
+    container_name: dryvocal-docusaurus
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - TZ=Asia/Shanghai
+      - DEFAULT_LOCALE=zh-Hans
+      - SUPPORTED_LOCALES=zh-Hans,en,ja,ko
+      - AUTO_LANGUAGE_DETECTION=true
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      test: ["CMD", "/usr/local/bin/healthcheck.sh"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     networks:
-      - removeui-network
+      - dryvocal-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dryvocal.rule=Host(`dryvocal.com`)"
+      - "traefik.http.routers.dryvocal.tls=true"
+      - "traefik.http.routers.dryvocal.tls.certresolver=letsencrypt"
+      - "traefik.http.services.dryvocal.loadbalancer.server.port=3000"
 
   # 可选：添加nginx反向代理
   nginx-proxy:
-    image: nginx:alpine
-    container_name: removeui-nginx-proxy
+    image: nginx:1.25-alpine
+    container_name: dryvocal-nginx-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./nginx-proxy.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
+      - nginx_cache:/var/cache/nginx
     depends_on:
       - docusaurus
     restart: unless-stopped
     networks:
-      - removeui-network
+      - dryvocal-network
     profiles:
       - proxy
+    labels:
+      - "traefik.enable=false"
+
+  # 可选：添加Traefik反向代理
+  traefik:
+    image: traefik:v3.0
+    container_name: dryvocal-traefik
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=support@dryvocal.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - dryvocal-network
+    profiles:
+      - traefik
+
+  # 可选：添加监控服务
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: dryvocal-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - dryvocal-network
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: dryvocal-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - dryvocal-network
+    profiles:
+      - monitoring
 
 networks:
-  removeui-network:
+  dryvocal-network:
     driver: bridge
+    name: dryvocal-network
 
 volumes:
   nginx_cache:
     driver: local
+    name: dryvocal-nginx-cache
+  grafana_data:
+    driver: local
+    name: dryvocal-grafana-data
