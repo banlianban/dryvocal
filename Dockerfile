@@ -3,6 +3,11 @@
 # 使用多阶段构建优化镜像大小
 FROM node:20-alpine AS builder
 
+# 可选的构建元数据参数（CI可通过 --build-arg 注入）
+ARG VERSION=""
+ARG VCS_REF=""
+ARG BUILD_DATE=""
+
 # 设置工作目录
 WORKDIR /app
 
@@ -29,11 +34,27 @@ COPY . .
 # 生成翻译文件
 RUN npm run write-translations
 
-# 构建应用（支持多语言）
+# 构建应用（支持多语言，包含Google Analytics配置）
+# 注意：Google Analytics配置已在docusaurus.config.js中设置
 RUN npm run build
+
+# 验证Google Analytics配置是否正确注入
+RUN grep -q "G-YTLK0654HR" build/index.html || (echo "❌ Google Analytics 配置验证失败" && exit 1)
 
 # 生产阶段 - 使用nginx提供静态文件服务
 FROM nginx:1.25-alpine AS runner
+
+# 透传构建元数据参数到运行阶段并写入OCI标签
+ARG VERSION
+ARG VCS_REF
+ARG BUILD_DATE
+LABEL org.opencontainers.image.title="DryVocal Docusaurus"
+LABEL org.opencontainers.image.description="Static site built with Docusaurus and served by Nginx"
+LABEL org.opencontainers.image.version=$VERSION
+LABEL org.opencontainers.image.revision=$VCS_REF
+LABEL org.opencontainers.image.created=$BUILD_DATE
+LABEL org.opencontainers.image.source="https://github.com/banlianban/dryvocal"
+LABEL org.opencontainers.image.licenses="MIT"
 
 # 安装必要的工具
 RUN apk add --no-cache \
@@ -41,8 +62,10 @@ RUN apk add --no-cache \
     curl \
     tzdata
 
-# 设置时区
-ENV TZ=Asia/Shanghai
+# 设置时区和环境变量
+ENV TZ=Asia/Shanghai \
+    NODE_ENV=production \
+    GOOGLE_ANALYTICS_ID=G-YTLK0654HR
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 复制构建产物到nginx目录（包含多语言版本）

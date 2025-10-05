@@ -89,8 +89,25 @@ const config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        // Google Analytics 配置 (使用gtag.js方式)
+        gtag: {
+          trackingID: 'G-YTLK0654HR', // 您的Google Analytics 4 跟踪ID
+          anonymizeIP: true,
+        },
       }),
     ],
+  ],
+
+  // 插件配置
+  plugins: [
+    // 如果需要更高级的Google Analytics配置，可以单独配置插件
+    // [
+    //   '@docusaurus/plugin-google-analytics',
+    //   {
+    //     trackingID: 'G-XXXXXXXXXX',
+    //     anonymizeIP: true,
+    //   },
+    // ],
   ],
 
   customFields: {
